@@ -23,7 +23,6 @@ namespace Everestfcsapi.Controllers
 
         #region System Staff Roles
         [HttpGet("GetSystemRoles/{TenantId}/{offset}/{count}")]
-        [AllowAnonymous]
         public async Task<IEnumerable<SystemUserRoles>> GetSystemRoles(long TenantId,int offset, int Count)
         {
             return await bl.GetSystemRoles(TenantId,offset, Count);
