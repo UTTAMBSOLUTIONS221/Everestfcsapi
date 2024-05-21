@@ -34,7 +34,7 @@ builder.Services.AddHttpContextAccessor();
 //                config.UseSqlServerStorage(Configuration.GetConnectionString("DatabaseConnection"))
 //            );
 builder.Services.AddScoped<IJobService, JobService>();
-builder.Services.AddHangfire(x => x.UseSqlServerStorage(@"Data Source=SQL6031.site4now.net;Initial Catalog=db_aa4d5e_everestfcs;User Id=db_aa4d5e_everestfcs_admin;Password=Password123!;"));
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(@"Data Source=tcp:uttambsolutions.database.windows.net,1433;Initial Catalog=Everestfcs;User Id=uttambsolutionadmin;Password=Password123!;"));
 builder.Services.AddHangfireServer();
 
 var app = builder.Build();
