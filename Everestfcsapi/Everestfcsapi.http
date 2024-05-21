@@ -1,0 +1,6 @@
+@Everestfcsapi_HostAddress = http://localhost:5094
+
+GET {{Everestfcsapi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
