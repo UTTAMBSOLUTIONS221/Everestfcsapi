@@ -1,0 +1,72 @@
+﻿namespace DBL.Entities
+{
+    public class SystemCustomer
+    {
+        public long CustomerId { get; set; }
+        public long TenantId { get; set; }
+        public string? Firstname { get; set; }
+        public string? Lastname { get; set; }
+        public string? Companyname { get; set; }
+        public string? Emailaddress { get; set; }
+        public long Phoneid { get; set; }
+        public string? Phonenumber { get; set; }
+        public DateTime Dob { get; set; }
+        public string? Gender { get; set; }
+        public string? IDNumber { get; set; }
+        public string? Designation { get; set; }
+        public string? Pin { get; set; }
+        public string? Pinharsh { get; set; }
+        public string? CompanyAddress { get; set; }
+        public string? ReferenceNumber { get; set; }
+        public DateTime CompanyIncorporationDate { get; set; }
+        public string? CompanyRegistrationNo { get; set; }
+        public string? CompanyPIN { get; set; }
+        public string? CompanyVAT { get; set; }
+        public DateTime Contractstartdate { get; set; }
+        public DateTime Contractenddate { get; set; }
+        public long StationId { get; set; }
+        public long CountryId { get; set; }
+        public long NoOfTransactionPerDay { get; set; }
+        public decimal AmountPerDay { get; set; }
+        public long ConsecutiveTransTimeMin { get; set; }
+        public bool IsPortaluser { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public string? Extra { get; set; }
+        public string? Extra1 { get; set; }
+        public string? Extra2 { get; set; }
+        public string? Extra3 { get; set; }
+        public string? Extra4 { get; set; }
+        public string? Extra5 { get; set; }
+        public string? Extra6 { get; set; }
+        public string? Extra7 { get; set; }
+        public string? Extra8 { get; set; }
+        public string? Extra9 { get; set; }
+        public long CreatedbyId { get; set; }
+        public string? Createdby { get; set; }
+        public long ModifiedId { get; set; }
+        public string? Modifiedby { get; set; }
+        public DateTime Datecreated { get; set; }
+        public DateTime Datemodified { get; set; }
+        public string? CustomerName { get; set; }
+        public string? TenantName { get; set; }
+        public string? TenantSubdomain { get; set; }
+        public string? TenantLogo { get; set; }
+        public string? TenantEmail { get; set; }
+        public string? TenantReference { get; set; }
+        public string? TenantPIN { get; set; }
+        public bool IsCCEmail { get; set; }
+        public string? CCEmail { get; set; }
+        public bool StaffAutoLogOff { get; set; }
+        public string? EmailServer { get; set; }
+        public string? EmailServerEmail { get; set; }
+        public string? EmailPassword { get; set; }
+        public string? MessageUsername { get; set; }
+        public string? MessageApiKey { get; set; }
+        public bool ApplyTax { get; set; }
+        public int NoOfDecimalPlaces { get; set; }
+        public bool IsEmailEnabled { get; set; }
+        public bool IsSmsEnabled { get; set; }
+        public bool IsTemplateTruncated { get; set; }
+    }
+}
