@@ -23,9 +23,10 @@ namespace Everestfcsapi.Controllers
 
         #region System Staff Roles
         [HttpGet("GetSystemRoles/{TenantId}/{offset}/{count}")]
-        public async Task<IEnumerable<SystemUserRoles>> GetSystemRoles(long TenantId,int Coffset, int Count)
+        [AllowAnonymous]
+        public async Task<IEnumerable<SystemUserRoles>> GetSystemRoles(long TenantId,int offset, int Count)
         {
-            return await bl.GetSystemRoles(TenantId,Coffset, Count);
+            return await bl.GetSystemRoles(TenantId,offset, Count);
         }
         [HttpPost("RegisterSystemStaffRole")]
         public async Task<Genericmodel> RegisterSystemStaffRole(SystemUserRoles obj)
