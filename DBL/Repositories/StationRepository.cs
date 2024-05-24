@@ -219,137 +219,147 @@ namespace DBL.Repositories
                 if (detailsJson != null)
                 {
                     JObject responseJson = JObject.Parse(detailsJson);
-                    if (responseJson["WetstockPurchases"] != null)
+                     if( Convert.ToInt64(responseJson["RespStatus"]) == 0)
                     {
-                        string WetstockPurchasesJson = responseJson["WetstockPurchases"].ToString();
-                        ShiftWetStockPurchaseData WetstockData = JsonConvert.DeserializeObject<ShiftWetStockPurchaseData>(WetstockPurchasesJson);
-                        singleStationShiftData.WetstockPurchases = WetstockData;
+                        if (responseJson["WetstockPurchases"] != null)
+                        {
+                            string WetstockPurchasesJson = responseJson["WetstockPurchases"].ToString();
+                            ShiftWetStockPurchaseData WetstockData = JsonConvert.DeserializeObject<ShiftWetStockPurchaseData>(WetstockPurchasesJson);
+                            singleStationShiftData.WetstockPurchases = WetstockData;
+                        }
+                        if (responseJson["DrystockPurchases"] != null)
+                        {
+                            string DrystockPurchasesJson = responseJson["DrystockPurchases"].ToString();
+                            ShiftDryStockPurchaseData DrystockData = JsonConvert.DeserializeObject<ShiftDryStockPurchaseData>(DrystockPurchasesJson);
+                            singleStationShiftData.DrystockPurchases = DrystockData;
+                        }
+                        singleStationShiftData.RespStatus = Convert.ToInt32(responseJson["RespStatus"]);
+                        singleStationShiftData.RespMessage = responseJson["RespMessage"].ToString();
+                        singleStationShiftData.HasPrevious = Convert.ToBoolean(responseJson["HasPrevious"]);
+                        singleStationShiftData.ShiftId = Convert.ToInt64(responseJson["ShiftId"]);
+                        singleStationShiftData.StationId = Convert.ToInt64(responseJson["StationId"]);
+                        singleStationShiftData.LocationData = responseJson["LocationData"].ToString();
+                        singleStationShiftData.ShiftCode = responseJson["ShiftCode"].ToString();
+                        singleStationShiftData.ShiftCategory = responseJson["ShiftCategory"].ToString();
+                        singleStationShiftData.CashOrAccount = responseJson["CashorAccount"].ToString();
+                        singleStationShiftData.ShiftDateTime = Convert.ToDateTime(responseJson["ShiftDateTime"]);
+                        singleStationShiftData.ShiftStatus = Convert.ToInt32(responseJson["ShiftStatus"]);
+                        singleStationShiftData.IsPosted = Convert.ToBoolean(responseJson["IsPosted"]);
+                        singleStationShiftData.IsDeleted = Convert.ToBoolean(responseJson["IsDeleted"]);
+                        singleStationShiftData.ShiftTotalAmount = Convert.ToDecimal(responseJson["ShiftTotalAmount"]);
+                        singleStationShiftData.ShiftBankedAmount = Convert.ToDecimal(responseJson["ShiftBankedAmount"]);
+                        singleStationShiftData.ShiftBalance = Convert.ToDecimal(responseJson["ShiftBalance"]);
+                        singleStationShiftData.ExpectedTankAmount = Convert.ToDecimal(responseJson["ExpectedTankAmount"]);
+                        singleStationShiftData.ExpectedPumpAmount = Convert.ToDecimal(responseJson["ExpectedPumpAmount"]);
+                        singleStationShiftData.GainLoss = Convert.ToDecimal(responseJson["GainLoss"]);
+                        singleStationShiftData.PercentGainLoss = Convert.ToDecimal(responseJson["PercentGainLoss"]);
+                        singleStationShiftData.ShiftBankReference = responseJson["ShiftBankReference"].ToString();
+                        singleStationShiftData.ShiftReference = responseJson["ShiftReference"].ToString();
+                        singleStationShiftData.Createdby = Convert.ToInt64(responseJson["Createdby"]);
+                        singleStationShiftData.Modifiedby = Convert.ToInt64(responseJson["Modifiedby"]);
+                        singleStationShiftData.DateCreated = Convert.ToDateTime(responseJson["DateCreated"]);
+                        singleStationShiftData.DateModified = Convert.ToDateTime(responseJson["DateModified"]);
+                        if (responseJson["ShiftPumpReading"] != null)
+                        {
+                            string ShiftPumpReadingJson = responseJson["ShiftPumpReading"].ToString();
+                            List<ShiftPumpReading> ShiftPumpReadingData = JsonConvert.DeserializeObject<List<ShiftPumpReading>>(ShiftPumpReadingJson);
+                            singleStationShiftData.ShiftPumpReading = ShiftPumpReadingData;
+                        }
+                        if (responseJson["ShiftTankReading"] != null)
+                        {
+                            string ShiftTankReadingJson = responseJson["ShiftTankReading"].ToString();
+                            List<ShiftTankReading> ShiftTankReadingData = JsonConvert.DeserializeObject<List<ShiftTankReading>>(ShiftTankReadingJson);
+                            singleStationShiftData.ShiftTankReading = ShiftTankReadingData;
+                        }
+                        if (responseJson["ShiftLubeReading"] != null)
+                        {
+                            string ShiftLubeReadingJson = responseJson["ShiftLubeReading"].ToString();
+                            List<ShiftLubeReading> ShiftLubeReadingData = JsonConvert.DeserializeObject<List<ShiftLubeReading>>(ShiftLubeReadingJson);
+                            singleStationShiftData.ShiftLubeReading = ShiftLubeReadingData;
+                        }
+                        if (responseJson["ShiftLpgReading"] != null)
+                        {
+                            string ShiftLpgReadingJson = responseJson["ShiftLpgReading"].ToString();
+                            List<ShiftLpgReading> ShiftLpgReadingData = JsonConvert.DeserializeObject<List<ShiftLpgReading>>(ShiftLpgReadingJson);
+                            singleStationShiftData.ShiftLpgReading = ShiftLpgReadingData;
+                        }
+                        if (responseJson["ShiftSparePartsData"] != null)
+                        {
+                            string ShiftSparePartsDataJson = responseJson["ShiftSparePartsData"].ToString();
+                            List<ShiftSparePart> ShiftSparePartsData = JsonConvert.DeserializeObject<List<ShiftSparePart>>(ShiftSparePartsDataJson);
+                            singleStationShiftData.ShiftSparePartsData = ShiftSparePartsData;
+                        }
+                        if (responseJson["ShiftCreditInvoice"] != null)
+                        {
+                            string ShiftCreditInvoiceJson = responseJson["ShiftCreditInvoice"].ToString();
+                            List<ShiftCreditInvoice> ShiftCreditInvoiceData = JsonConvert.DeserializeObject<List<ShiftCreditInvoice>>(ShiftCreditInvoiceJson);
+                            singleStationShiftData.ShiftCreditInvoice = ShiftCreditInvoiceData;
+                        }
+                        if (responseJson["ShiftExpenses"] != null)
+                        {
+                            string ShiftExpensesJson = responseJson["ShiftExpenses"].ToString();
+                            List<ShiftExpenses> ShiftExpensesData = JsonConvert.DeserializeObject<List<ShiftExpenses>>(ShiftExpensesJson);
+                            singleStationShiftData.ShiftExpenses = ShiftExpensesData;
+                        }
+                        if (responseJson["ShiftMpesaCollection"] != null)
+                        {
+                            string ShiftMpesaCollectionJson = responseJson["ShiftMpesaCollection"].ToString();
+                            List<ShiftMpesaCollection> ShiftMpesaCollectionData = JsonConvert.DeserializeObject<List<ShiftMpesaCollection>>(ShiftMpesaCollectionJson);
+                            singleStationShiftData.ShiftMpesaCollection = ShiftMpesaCollectionData;
+                        }
+                        if (responseJson["ShiftFuelCardCollection"] != null)
+                        {
+                            string ShiftFuelCardCollectionJson = responseJson["ShiftFuelCardCollection"].ToString();
+                            List<ShiftFuelCardCollection> ShiftFuelCardCollectionData = JsonConvert.DeserializeObject<List<ShiftFuelCardCollection>>(ShiftFuelCardCollectionJson);
+                            singleStationShiftData.ShiftFuelCardCollection = ShiftFuelCardCollectionData;
+                        }
+                        if (responseJson["ShiftMerchantCollection"] != null)
+                        {
+                            string ShiftMerchantCollectionJson = responseJson["ShiftMerchantCollection"].ToString();
+                            List<ShiftMerchantCollection> ShiftMerchantCollectionData = JsonConvert.DeserializeObject<List<ShiftMerchantCollection>>(ShiftMerchantCollectionJson);
+                            singleStationShiftData.ShiftMerchantCollection = ShiftMerchantCollectionData;
+                        }
+                        if (responseJson["ShiftTopup"] != null)
+                        {
+                            string ShiftTopupJson = responseJson["ShiftTopup"].ToString();
+                            List<ShiftTopup> ShiftTopupData = JsonConvert.DeserializeObject<List<ShiftTopup>>(ShiftTopupJson);
+                            singleStationShiftData.ShiftTopup = ShiftTopupData;
+                        }
+                        if (responseJson["ShiftPayment"] != null)
+                        {
+                            string ShiftPaymentJson = responseJson["ShiftPayment"].ToString();
+                            List<ShiftPayment> ShiftPaymentData = JsonConvert.DeserializeObject<List<ShiftPayment>>(ShiftPaymentJson);
+                            singleStationShiftData.ShiftPayment = ShiftPaymentData;
+                        }
+                        if (responseJson["ShiftPumpSaleSummary"] != null)
+                        {
+                            string ShiftPumpSaleSummaryJson = responseJson["ShiftPumpSaleSummary"].ToString();
+                            List<ShiftPumpSaleSummary> ShiftPumpSaleSummaryData = JsonConvert.DeserializeObject<List<ShiftPumpSaleSummary>>(ShiftPumpSaleSummaryJson);
+                            singleStationShiftData.ShiftPumpSaleSummary = ShiftPumpSaleSummaryData;
+                        }
+                        if (responseJson["ShiftTankSaleSummary"] != null)
+                        {
+                            string ShiftTankSaleSummaryJson = responseJson["ShiftTankSaleSummary"].ToString();
+                            List<ShiftTankSaleSummary> ShiftTankSaleSummaryData = JsonConvert.DeserializeObject<List<ShiftTankSaleSummary>>(ShiftTankSaleSummaryJson);
+                            singleStationShiftData.ShiftTankSaleSummary = ShiftTankSaleSummaryData;
+                        }
+                        if (responseJson["FinancialDetails"] != null)
+                        {
+                            string FinancialDetailsJson = responseJson["FinancialDetails"].ToString();
+                            List<FinancialDetailSummary> FinancialDetailsData = JsonConvert.DeserializeObject<List<FinancialDetailSummary>>(FinancialDetailsJson);
+                            singleStationShiftData.FinancialDetails = FinancialDetailsData;
+                        }
+                        if (responseJson["AttendantShiftSummary"] != null)
+                        {
+                            string AttendantShiftSummaryJson = responseJson["AttendantShiftSummary"].ToString();
+                            List<AttendantShiftSummary> AttendantShiftSummaryData = JsonConvert.DeserializeObject<List<AttendantShiftSummary>>(AttendantShiftSummaryJson);
+                            singleStationShiftData.AttendantShiftSummary = AttendantShiftSummaryData;
+                        }
                     }
-                    if (responseJson["DrystockPurchases"] != null)
+                    else
                     {
-                        string DrystockPurchasesJson = responseJson["DrystockPurchases"].ToString();
-                        ShiftDryStockPurchaseData DrystockData = JsonConvert.DeserializeObject<ShiftDryStockPurchaseData>(DrystockPurchasesJson);
-                        singleStationShiftData.DrystockPurchases = DrystockData;
-                    }
-                    singleStationShiftData.HasPrevious = Convert.ToBoolean(responseJson["HasPrevious"]);
-                    singleStationShiftData.ShiftId = Convert.ToInt64(responseJson["ShiftId"]);
-                    singleStationShiftData.StationId = Convert.ToInt64(responseJson["StationId"]);
-                    singleStationShiftData.LocationData = responseJson["LocationData"].ToString();
-                    singleStationShiftData.ShiftCode = responseJson["ShiftCode"].ToString();
-                    singleStationShiftData.ShiftCategory = responseJson["ShiftCategory"].ToString();
-                    singleStationShiftData.CashOrAccount = responseJson["CashorAccount"].ToString();
-                    singleStationShiftData.ShiftDateTime = Convert.ToDateTime(responseJson["ShiftDateTime"]);
-                    singleStationShiftData.ShiftStatus = Convert.ToInt32(responseJson["ShiftStatus"]);
-                    singleStationShiftData.IsPosted = Convert.ToBoolean(responseJson["IsPosted"]);
-                    singleStationShiftData.IsDeleted = Convert.ToBoolean(responseJson["IsDeleted"]);
-                    singleStationShiftData.ShiftTotalAmount = Convert.ToDecimal(responseJson["ShiftTotalAmount"]);
-                    singleStationShiftData.ShiftBankedAmount = Convert.ToDecimal(responseJson["ShiftBankedAmount"]);
-                    singleStationShiftData.ShiftBalance = Convert.ToDecimal(responseJson["ShiftBalance"]);
-                    singleStationShiftData.ExpectedTankAmount = Convert.ToDecimal(responseJson["ExpectedTankAmount"]);
-                    singleStationShiftData.ExpectedPumpAmount = Convert.ToDecimal(responseJson["ExpectedPumpAmount"]);
-                    singleStationShiftData.GainLoss = Convert.ToDecimal(responseJson["GainLoss"]);
-                    singleStationShiftData.PercentGainLoss = Convert.ToDecimal(responseJson["PercentGainLoss"]);
-                    singleStationShiftData.ShiftBankReference = responseJson["ShiftBankReference"].ToString();
-                    singleStationShiftData.ShiftReference = responseJson["ShiftReference"].ToString();
-                    singleStationShiftData.Createdby = Convert.ToInt64(responseJson["Createdby"]);
-                    singleStationShiftData.Modifiedby = Convert.ToInt64(responseJson["Modifiedby"]);
-                    singleStationShiftData.DateCreated = Convert.ToDateTime(responseJson["DateCreated"]);
-                    singleStationShiftData.DateModified = Convert.ToDateTime(responseJson["DateModified"]);
-                    if (responseJson["ShiftPumpReading"] != null)
-                    {
-                        string ShiftPumpReadingJson = responseJson["ShiftPumpReading"].ToString();
-                        List<ShiftPumpReading> ShiftPumpReadingData = JsonConvert.DeserializeObject<List<ShiftPumpReading>>(ShiftPumpReadingJson);
-                        singleStationShiftData.ShiftPumpReading = ShiftPumpReadingData;
-                    }
-                    if (responseJson["ShiftTankReading"] != null)
-                    {
-                        string ShiftTankReadingJson = responseJson["ShiftTankReading"].ToString();
-                        List<ShiftTankReading> ShiftTankReadingData = JsonConvert.DeserializeObject<List<ShiftTankReading>>(ShiftTankReadingJson);
-                        singleStationShiftData.ShiftTankReading = ShiftTankReadingData;
-                    }
-                    if (responseJson["ShiftLubeReading"] != null)
-                    {
-                        string ShiftLubeReadingJson = responseJson["ShiftLubeReading"].ToString();
-                        List<ShiftLubeReading> ShiftLubeReadingData = JsonConvert.DeserializeObject<List<ShiftLubeReading>>(ShiftLubeReadingJson);
-                        singleStationShiftData.ShiftLubeReading = ShiftLubeReadingData;
-                    }
-                    if (responseJson["ShiftLpgReading"] != null)
-                    {
-                        string ShiftLpgReadingJson = responseJson["ShiftLpgReading"].ToString();
-                        List<ShiftLpgReading> ShiftLpgReadingData = JsonConvert.DeserializeObject<List<ShiftLpgReading>>(ShiftLpgReadingJson);
-                        singleStationShiftData.ShiftLpgReading = ShiftLpgReadingData;
-                    }
-                    if (responseJson["ShiftSparePartsData"] != null)
-                    {
-                        string ShiftSparePartsDataJson = responseJson["ShiftSparePartsData"].ToString();
-                        List<ShiftSparePart> ShiftSparePartsData = JsonConvert.DeserializeObject<List<ShiftSparePart>>(ShiftSparePartsDataJson);
-                        singleStationShiftData.ShiftSparePartsData = ShiftSparePartsData;
-                    }
-                    if (responseJson["ShiftCreditInvoice"] != null)
-                    {
-                        string ShiftCreditInvoiceJson = responseJson["ShiftCreditInvoice"].ToString();
-                        List<ShiftCreditInvoice> ShiftCreditInvoiceData = JsonConvert.DeserializeObject<List<ShiftCreditInvoice>>(ShiftCreditInvoiceJson);
-                        singleStationShiftData.ShiftCreditInvoice = ShiftCreditInvoiceData;
-                    }
-                    if (responseJson["ShiftExpenses"] != null)
-                    {
-                        string ShiftExpensesJson = responseJson["ShiftExpenses"].ToString();
-                        List<ShiftExpenses> ShiftExpensesData = JsonConvert.DeserializeObject<List<ShiftExpenses>>(ShiftExpensesJson);
-                        singleStationShiftData.ShiftExpenses = ShiftExpensesData;
-                    }
-                    if (responseJson["ShiftMpesaCollection"] != null)
-                    {
-                        string ShiftMpesaCollectionJson = responseJson["ShiftMpesaCollection"].ToString();
-                        List<ShiftMpesaCollection> ShiftMpesaCollectionData = JsonConvert.DeserializeObject<List<ShiftMpesaCollection>>(ShiftMpesaCollectionJson);
-                        singleStationShiftData.ShiftMpesaCollection = ShiftMpesaCollectionData;
-                    }
-                    if (responseJson["ShiftFuelCardCollection"] != null)
-                    {
-                        string ShiftFuelCardCollectionJson = responseJson["ShiftFuelCardCollection"].ToString();
-                        List<ShiftFuelCardCollection> ShiftFuelCardCollectionData = JsonConvert.DeserializeObject<List<ShiftFuelCardCollection>>(ShiftFuelCardCollectionJson);
-                        singleStationShiftData.ShiftFuelCardCollection = ShiftFuelCardCollectionData;
-                    }
-                    if (responseJson["ShiftMerchantCollection"] != null)
-                    {
-                        string ShiftMerchantCollectionJson = responseJson["ShiftMerchantCollection"].ToString();
-                        List<ShiftMerchantCollection> ShiftMerchantCollectionData = JsonConvert.DeserializeObject<List<ShiftMerchantCollection>>(ShiftMerchantCollectionJson);
-                        singleStationShiftData.ShiftMerchantCollection = ShiftMerchantCollectionData;
-                    }
-                    if (responseJson["ShiftTopup"] != null)
-                    {
-                        string ShiftTopupJson = responseJson["ShiftTopup"].ToString();
-                        List<ShiftTopup> ShiftTopupData = JsonConvert.DeserializeObject<List<ShiftTopup>>(ShiftTopupJson);
-                        singleStationShiftData.ShiftTopup = ShiftTopupData;
-                    }
-                    if (responseJson["ShiftPayment"] != null)
-                    {
-                        string ShiftPaymentJson = responseJson["ShiftPayment"].ToString();
-                        List<ShiftPayment> ShiftPaymentData = JsonConvert.DeserializeObject<List<ShiftPayment>>(ShiftPaymentJson);
-                        singleStationShiftData.ShiftPayment = ShiftPaymentData;
-                    }
-                    if (responseJson["ShiftPumpSaleSummary"] != null)
-                    {
-                        string ShiftPumpSaleSummaryJson = responseJson["ShiftPumpSaleSummary"].ToString();
-                        List<ShiftPumpSaleSummary> ShiftPumpSaleSummaryData = JsonConvert.DeserializeObject<List<ShiftPumpSaleSummary>>(ShiftPumpSaleSummaryJson);
-                        singleStationShiftData.ShiftPumpSaleSummary = ShiftPumpSaleSummaryData;
-                    }
-                    if (responseJson["ShiftTankSaleSummary"] != null)
-                    {
-                        string ShiftTankSaleSummaryJson = responseJson["ShiftTankSaleSummary"].ToString();
-                        List<ShiftTankSaleSummary> ShiftTankSaleSummaryData = JsonConvert.DeserializeObject<List<ShiftTankSaleSummary>>(ShiftTankSaleSummaryJson);
-                        singleStationShiftData.ShiftTankSaleSummary = ShiftTankSaleSummaryData;
-                    }
-                    if (responseJson["FinancialDetails"] != null)
-                    {
-                        string FinancialDetailsJson = responseJson["FinancialDetails"].ToString();
-                        List<FinancialDetailSummary> FinancialDetailsData = JsonConvert.DeserializeObject<List<FinancialDetailSummary>>(FinancialDetailsJson);
-                        singleStationShiftData.FinancialDetails = FinancialDetailsData;
-                    }
-                    if (responseJson["AttendantShiftSummary"] != null)
-                    {
-                        string AttendantShiftSummaryJson = responseJson["AttendantShiftSummary"].ToString();
-                        List<AttendantShiftSummary> AttendantShiftSummaryData = JsonConvert.DeserializeObject<List<AttendantShiftSummary>>(AttendantShiftSummaryJson);
-                        singleStationShiftData.AttendantShiftSummary = AttendantShiftSummaryData;
+                        singleStationShiftData.RespStatus = Convert.ToInt32(responseJson["RespStatus"]);
+                        singleStationShiftData.RespMessage = responseJson["RespMessage"].ToString();
                     }
                 }
                 return singleStationShiftData;
