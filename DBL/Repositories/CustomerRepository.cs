@@ -33,14 +33,14 @@ namespace DBL.Repositories
                     CustomermodeldataResponce customerResponse = JsonConvert.DeserializeObject<CustomermodeldataResponce>(customerModelJson);
                     resp.RespStatus = Convert.ToInt32(responseJson["RespStatus"]);
                     resp.RespMessage = responseJson["RespMessage"].ToString();
-                    resp.Customermodel = customerResponse;
+                    resp.CustomerModel = customerResponse;
                     return resp;
                 }
                 else
                 {
                     resp.RespStatus = Convert.ToInt32(responseJson["RespStatus"]);
                     resp.RespMessage = responseJson["RespMessage"].ToString();
-                    resp.Customermodel = new CustomermodeldataResponce();
+                    resp.CustomerModel = new CustomermodeldataResponce();
                     return resp;
                 }
             }
