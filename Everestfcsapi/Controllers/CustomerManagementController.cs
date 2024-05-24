@@ -37,7 +37,7 @@ namespace Everestfcsapi.Controllers
                     RespStatus = 401,
                     RespMessage = _customerData.RespMessage,
                     Token = "",
-                    Customermodel = new CustomermodeldataResponce()
+                    CustomerModel = new CustomermodeldataResponce()
                 });
             if (_customerData.RespStatus == 2)
                 return StatusCode(StatusCodes.Status500InternalServerError, _customerData.RespMessage);
@@ -45,7 +45,7 @@ namespace Everestfcsapi.Controllers
                      new Claim(JwtRegisteredClaimNames.Sub, _config["Jwt:Subject"]),
                      new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                      new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                     new Claim("CustomerId", _customerData.Customermodel.CustomerId.ToString()),
+                     new Claim("CustomerId", _customerData.CustomerModel.CustomerId.ToString()),
                  };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -62,7 +62,7 @@ namespace Everestfcsapi.Controllers
                 RespStatus = 200,
                 RespMessage = "Ok",
                 Token = tokenString,
-                Customermodel = _customerData.Customermodel
+                CustomerModel = _customerData.CustomerModel
             });
         }
         #endregion
