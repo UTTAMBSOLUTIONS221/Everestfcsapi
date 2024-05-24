@@ -2,6 +2,8 @@
 {
     public class SingleStationShiftData
     {
+        public int RespStatus { get; set; }
+        public string? RespMessage { get; set; }
         public bool HasPrevious { get; set; }
         public long ShiftId { get; set; }
         public long StationId { get; set; }
