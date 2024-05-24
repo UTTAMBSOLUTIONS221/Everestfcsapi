@@ -1,9 +1,14 @@
 ﻿using DBL;
 using DBL.Entities;
 using DBL.Models;
+using Everestfcsapi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Everestfcsapi.Controllers
 {
@@ -19,6 +24,48 @@ namespace Everestfcsapi.Controllers
             bl = new BL(Util.ShareConnectionString(config));
             _config = config;
         }
+
+        #region Authenticate Customer Data
+        [AllowAnonymous]
+        [Route("AuthenticateCustomer"), HttpPost]
+        public async Task<ActionResult> AuthenticateCustomerAsync([FromBody] Usercred userdata)
+        {
+            var _customerData = await bl.ValidateSystemCustomer(userdata.username, userdata.password);
+            if (_customerData.RespStatus == 1)
+                return Unauthorized(new CustomermodelResponce
+                {
+                    RespStatus = 401,
+                    RespMessage = _customerData.RespMessage,
+                    Token = "",
+                    Customermodel = new CustomermodeldataResponce()
+                });
+            if (_customerData.RespStatus == 2)
+                return StatusCode(StatusCodes.Status500InternalServerError, _customerData.RespMessage);
+            var claims = new[] {
+                     new Claim(JwtRegisteredClaimNames.Sub, _config["Jwt:Subject"]),
+                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                     new Claim("CustomerId", _customerData.Customermodel.CustomerId.ToString()),
+                 };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                _config["Jwt:Issuer"],
+                _config["Jwt:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(30),
+                signingCredentials: signIn);
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return Ok(new CustomermodelResponce
+            {
+                RespStatus = 200,
+                RespMessage = "Ok",
+                Token = tokenString,
+                Customermodel = _customerData.Customermodel
+            });
+        }
+        #endregion
 
         #region System Customer Data
         [HttpGet("GetSystemCustomerData/{TenantId}/{Offset}/{Count}")]
@@ -267,7 +314,6 @@ namespace Everestfcsapi.Controllers
         #endregion
 
         #endregion
-
 
         #region Delete,Deactivate Actions
         [HttpPost("DeactivateorDeleteTableColumnData")]

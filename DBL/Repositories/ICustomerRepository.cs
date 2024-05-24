@@ -5,6 +5,10 @@ namespace DBL.Repositories
 {
     public interface ICustomerRepository
     {
+        #region Verify System Customer
+        CustomermodelResponce VerifySystemCustomer(string Username);
+        #endregion
+
         #region System Customers
         IEnumerable<SystemCustomerModel> GetSystemCustomerData(long TenantId,int Offset, int Count);
         IEnumerable<SystemCustomerModel> GetSystemCustomerData(long TenantId, string SearchParam, int Offset, int Count);

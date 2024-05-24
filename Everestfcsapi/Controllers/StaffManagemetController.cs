@@ -1,9 +1,8 @@
-﻿using DBL.Entities;
+﻿using DBL;
+using DBL.Entities;
 using DBL.Models;
-using DBL;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Everestfcsapi.Controllers
@@ -23,9 +22,9 @@ namespace Everestfcsapi.Controllers
 
         #region System Staff Roles
         [HttpGet("GetSystemRoles/{TenantId}/{offset}/{count}")]
-        public async Task<IEnumerable<SystemUserRoles>> GetSystemRoles(long TenantId,int offset, int Count)
+        public async Task<IEnumerable<SystemUserRoles>> GetSystemRoles(long TenantId, int offset, int Count)
         {
-            return await bl.GetSystemRoles(TenantId,offset, Count);
+            return await bl.GetSystemRoles(TenantId, offset, Count);
         }
         [HttpPost("RegisterSystemStaffRole")]
         public async Task<Genericmodel> RegisterSystemStaffRole(SystemUserRoles obj)
@@ -38,7 +37,7 @@ namespace Everestfcsapi.Controllers
             return await bl.GetSystemRoleDetailData(RoleId);
         }
         [HttpGet("GetSystemUserPermissions/{StaffId}/{Isportal}")]
-        public async Task<IEnumerable<SystemPermissions>> GetSystemUserPermissions(long StaffId,bool Isportal)
+        public async Task<IEnumerable<SystemPermissions>> GetSystemUserPermissions(long StaffId, bool Isportal)
         {
             return await bl.GetSystemUserPermissions(StaffId, Isportal);
         }
@@ -46,9 +45,9 @@ namespace Everestfcsapi.Controllers
 
         #region System Staffs
         [HttpGet("GetSystemStaffsData/{TenantId}/{Offset}/{Count}")]
-        public async Task<IEnumerable<SystemStaffsData>> GetSystemStaffsData(long TenantId, int Offset,int Count)
+        public async Task<IEnumerable<SystemStaffsData>> GetSystemStaffsData(long TenantId, int Offset, int Count)
         {
-            return await bl.GetSystemStaffsData(TenantId,Offset, Count);
+            return await bl.GetSystemStaffsData(TenantId, Offset, Count);
         }
         [HttpPost("RegisterSystemStaff")]
         public async Task<Genericmodel> RegisterSystemStaff(SystemStaffs obj)

@@ -147,6 +147,81 @@ namespace DBL
 
         #endregion
 
+        #region Verify and Validate System Customer User
+        public Task<CustomermodelResponce> ValidateSystemCustomer(string userName, string password)
+        {
+            return Task.Run(async () =>
+            {
+                CustomermodelResponce customerModel = new CustomermodelResponce { };
+                var resp = db.CustomerRepository.VerifySystemCustomer(userName);
+                if (resp.RespStatus == 0)
+                {
+                    Encryptdecrypt sec = new Encryptdecrypt();
+                    string descpass = sec.Decrypt(resp.CustomerModel.Pin, resp.CustomerModel.Pinharsh);
+                    if (password == descpass)
+                    {
+                        customerModel = new CustomermodelResponce
+                        {
+                            RespStatus = resp.RespStatus,
+                            RespMessage = resp.RespMessage,
+                            Token = "",
+                            CustomerModel = new CustomermodeldataResponce
+                            {
+                                CustomerId = resp.CustomerModel.CustomerId,
+                                Tenantid = resp.CustomerModel.Tenantid,
+                                Firstname = resp.CustomerModel.Firstname,
+                                Lastname = resp.CustomerModel.Lastname,
+                                Companyname = resp.CustomerModel.Companyname,
+                                Emailaddress = resp.CustomerModel.Emailaddress,
+                                Phoneid = resp.CustomerModel.Phoneid,
+                                Phonenumber = resp.CustomerModel.Phonenumber,
+                                Dob = resp.CustomerModel.Dob,
+                                Gender = resp.CustomerModel.Gender,
+                                IDNumber = resp.CustomerModel.IDNumber,
+                                Designation = resp.CustomerModel.Designation,
+                                Pin = resp.CustomerModel.Pin,
+                                Pinharsh = resp.CustomerModel.Pinharsh,
+                                CompanyAddress = resp.CustomerModel.CompanyAddress,
+                                ReferenceNumber = resp.CustomerModel.ReferenceNumber,
+                                CompanyIncorporationDate = resp.CustomerModel.CompanyIncorporationDate,
+                                CompanyRegistrationNo = resp.CustomerModel.CompanyRegistrationNo,
+                                CompanyPIN = resp.CustomerModel.CompanyPIN,
+                                CompanyVAT = resp.CustomerModel.CompanyVAT,
+                                Contractstartdate = resp.CustomerModel.Contractstartdate,
+                                Contractenddate = resp.CustomerModel.Contractenddate,
+                                StationId = resp.CustomerModel.StationId,
+                                CountryId = resp.CustomerModel.CountryId,
+                                NoOfTransactionPerDay = resp.CustomerModel.NoOfTransactionPerDay,
+                                AmountPerDay = resp.CustomerModel.AmountPerDay,
+                                ConsecutiveTransTimeMin = resp.CustomerModel.ConsecutiveTransTimeMin,
+                                IsPortaluser = resp.CustomerModel.IsPortaluser,
+                                IsActive = resp.CustomerModel.IsActive,
+                                IsDeleted = resp.CustomerModel.IsDeleted,
+                                Createdby = resp.CustomerModel.Createdby,
+                                Modifiedby = resp.CustomerModel.Modifiedby,
+                                Datecreated = resp.CustomerModel.Datecreated,
+                                Datemodified = resp.CustomerModel.Datemodified,
+                            }
+                        };
+                        return customerModel;
+                    }
+                    else
+                    {
+                        customerModel.RespStatus = 1;
+                        customerModel.RespMessage = "Incorrect Username or Password";
+                    }
+                }
+                else
+                {
+                    customerModel.RespStatus = 1;
+                    customerModel.RespMessage = resp.RespMessage;
+                }
+                return customerModel;
+            });
+        }
+
+        #endregion
+
         #region System Dashboard
         public Task<SystemDashboardData> Getsystemdashboarddata(long TenantId,long StationId, DateTime TodayDate)
         {

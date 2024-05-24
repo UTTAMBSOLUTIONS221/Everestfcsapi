@@ -13,6 +13,40 @@ namespace DBL.Repositories
         public CustomerRepository(string connectionString) : base(connectionString)
         {
         }
+        #region Verify System Customer
+        public CustomermodelResponce VerifySystemCustomer(string Username)
+        {
+
+            using (var connection = new SqlConnection(_connString))
+            {
+                connection.Open();
+                CustomermodelResponce resp = new CustomermodelResponce();
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Username", Username);
+                parameters.Add("@@CustomerDetails", dbType: DbType.String, direction: ParameterDirection.Output, size: int.MaxValue);
+                var queryResult = connection.Query("Usp_Everestfcsverifysystemcustomer", parameters, commandType: CommandType.StoredProcedure);
+                string customerDetailsJson = parameters.Get<string>("@CustomerDetails");
+                JObject responseJson = JObject.Parse(customerDetailsJson);
+                if (Convert.ToInt32(responseJson["RespStatus"]) == 0)
+                {
+                    string customerModelJson = responseJson["Customermodel"].ToString();
+                    CustomermodeldataResponce customerResponse = JsonConvert.DeserializeObject<CustomermodeldataResponce>(customerModelJson);
+                    resp.RespStatus = Convert.ToInt32(responseJson["RespStatus"]);
+                    resp.RespMessage = responseJson["RespMessage"].ToString();
+                    resp.Customermodel = customerResponse;
+                    return resp;
+                }
+                else
+                {
+                    resp.RespStatus = Convert.ToInt32(responseJson["RespStatus"]);
+                    resp.RespMessage = responseJson["RespMessage"].ToString();
+                    resp.Customermodel = new CustomermodeldataResponce();
+                    return resp;
+                }
+            }
+        }
+        #endregion
+
         #region System Customers
         public IEnumerable<SystemCustomerModel> GetSystemCustomerData(long TenantId, int Offset, int Count)
         {

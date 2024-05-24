@@ -1,11 +1,11 @@
-﻿using System.Data.SqlClient;
-using System.Data;
-using Dapper;
+﻿using Dapper;
 using DBL.Models;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace DBL.Repositories
 {
-    public class CustomermanagementRepository:BaseRepository,ICustomermanagementRepository
+    public class CustomermanagementRepository : BaseRepository, ICustomermanagementRepository
     {
         public CustomermanagementRepository(string connectionString) : base(connectionString)
         {
