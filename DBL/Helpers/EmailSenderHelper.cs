@@ -8,9 +8,15 @@ namespace DBL.Helpers
     {
         public bool UttambsolutionssendemailAsync(string to, string subject, string body, bool IsBodyHtml,string EmailServer, string EmailServerEmail,string EmailServerPassword)
         {
-            string appServer = "mail.uttambsolutions.com";
-            string appEmail = "communications@uttambsolutions.com";
-            string appPassword = "K@ribun1";
+            //string appServer = "mail.uttambsolutions.com";
+            //string appEmail = "communications@uttambsolutions.com";
+            //string appPassword = "K@ribun1";
+
+            string appServer = "smtp.gmail.com";
+            string appEmail = "Uttambsolutionapissale@gmail.com";
+            string appPassword = "ozvtcxongpnhileq";
+
+
 
             if (EmailServer == null || EmailServer == "" || EmailServerEmail == null || EmailServerEmail == "" || EmailServerPassword == null || EmailServerPassword == "")
             {
