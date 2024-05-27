@@ -816,51 +816,48 @@ namespace DBL
         }
         public Task<Genericmodel> Resendcustomerpassword(long CustomerId)
         {
-            Genericmodel Response = new Genericmodel();
+            Genericmodel Resp = new Genericmodel();
             return Task.Run(() =>
             {
-                var Resp = db.CustomerRepository.Resendcustomerpassword(CustomerId);
-                if (Resp.Userid >= 1)
+                var RespData = db.CustomerRepository.GetSystemCompanyCustomerData(CustomerId);
+                if (RespData.CustomerId >= 1)
                 {
-                    //send Card Assignment Email
-                    var commtempdata = db.SettingsRepository.Getsystemcommunicationtemplatedatabyname(true, "Staffforgotpasswordtemplate");
+                    var commtempdata = db.SettingsRepository.Getsystemcommunicationtemplatedatabyname(true, "Customerboaringtemplate");
                     if (commtempdata != null)
                     {
                         StringBuilder StrBodyEmail = new StringBuilder(commtempdata.Templatebody);
-                        StrBodyEmail.Replace("@CompanyLogo", Resp.TenantLogo);
-                        StrBodyEmail.Replace("@CompanyName", Resp.Tenantname);
-                        StrBodyEmail.Replace("@CompanyEmail", Resp.TenantEmail);
-                        StrBodyEmail.Replace("@Fullname", Resp.Firstname + " " + Resp.Lastname);
-                        StrBodyEmail.Replace("@Username", Resp.Username);
-                        StrBodyEmail.Replace("@Password", sec.Decrypt(Resp.Passwords, Resp.Passharsh));
+                        StrBodyEmail.Replace("@CompanyLogo", RespData.TenantLogo);
+                        StrBodyEmail.Replace("@CompanyName", RespData.TenantName);
+                        StrBodyEmail.Replace("@CompanyEmail", RespData.TenantEmail);
+                        StrBodyEmail.Replace("@Fullname", RespData.CustomerName);
+                        StrBodyEmail.Replace("@Username", RespData.Emailaddress);
+                        StrBodyEmail.Replace("@Password", sec.Decrypt(RespData.Pin, RespData.Pinharsh));
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
-
-                        bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, commtempdata.Templatesubject, message, true, Resp.EmailServer, Resp.EmailServerEmail, Resp.EmailPassword);
+                        bool data = emlsnd.UttambsolutionssendemailAsync(RespData.Emailaddress, commtempdata.Templatesubject + " - " + RespData.TenantName.ToUpper(), message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
                         if (data)
                         {
-                            Response.RespStatus = 0;
-                            Response.RespMessage = "Email Sent";
+                            Resp.RespStatus = 0;
+                            Resp.RespMessage = "Email Sent";
                         }
                         else
                         {
-                            Response.RespStatus = 1;
-                            Response.RespMessage = "Email not Sent";
+                            Resp.RespStatus = 1;
+                            Resp.RespMessage = "Email not Sent";
                         }
                     }
                     else
                     {
-                        Response.RespStatus = 1;
-                        Response.RespMessage = "Template not found!";
+                        Resp.RespStatus = 1;
+                        Resp.RespMessage = "Template not found!";
                     }
                 }
                 else
                 {
-                    Response.RespStatus = 1;
-                    Response.RespMessage = "Staff not found!";
+                    Resp.RespStatus = 1;
+                    Resp.RespMessage = "Staff not found!";
                 }
-
-                return Response;
+                return Resp;
             });
         }
         #endregion

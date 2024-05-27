@@ -137,19 +137,6 @@ namespace DBL.Repositories
 
             }
         }
-        public SystemCustomerModel Resendcustomerpassword(long CustomerId)
-        {
-            using (var connection = new SqlConnection(_connString))
-            {
-                connection.Open();
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@CustomerId", CustomerId);
-                parameters.Add("@Staffdetaildata", dbType: DbType.String, direction: ParameterDirection.Output, size: int.MaxValue);
-                var queryResult = connection.Query("Usp_GetSystemStaffUserDetailData", parameters, commandType: CommandType.StoredProcedure);
-                string roledetailDetailsJson = parameters.Get<string>("@Staffdetaildata");
-                return JsonConvert.DeserializeObject<SystemCustomerModel>(roledetailDetailsJson);
-            }
-        }
         #endregion
 
         #region Customer Agreements

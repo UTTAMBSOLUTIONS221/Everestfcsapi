@@ -17,7 +17,6 @@ namespace DBL.Repositories
         SystemCustomerDetails GetSystemCustomerDetailData(long CustomerId);
         IEnumerable<SystemCustomerAgreementsData> GetSystemCustomerAgreementData(long CustomerId);
         CustomerCardDetailsData GetSystemCustomerAccountCardDetailData(string jsonObjectdata);
-        SystemCustomerModel Resendcustomerpassword(long CustomerId);
         #endregion
 
         #region Customer Agreement
