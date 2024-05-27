@@ -113,6 +113,19 @@ namespace DBL
                     StrBodyEmail.Replace("@Password", sec.Decrypt(Obj.Password, Obj.Passharsh));
                     StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                     string message = StrBodyEmail.ToString();
+                    //log Email Messages
+                    EmailLogs Logs = new EmailLogs
+                    {
+                        EmailLogId = 0,
+                        TenantId = Obj.TenantId,
+                        EmailAddress = Obj.Emailaddress,
+                        EmailSubject = commtempdata.Templatesubject,
+                        EmailMessage = message,
+                        IsEmailSent = false,
+                        DateTimeSent = DateTime.Now,
+                        Datecreated = DateTime.Now,
+                    };
+                    var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                     bool data = emlsnd.UttambsolutionssendemailAsync(Obj.Emailaddress, commtempdata.Templatesubject, message, true,"","","");
                     if (data)
                     {
@@ -352,6 +365,19 @@ namespace DBL
                         StrBodyEmail.Replace("@Password", sec.Decrypt(RespData.Passwords, RespData.Passharsh));
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
+                        //log Email Messages
+                        EmailLogs Logs = new EmailLogs
+                        {
+                            EmailLogId = 0,
+                            TenantId = RespData.Tenantid,
+                            EmailAddress = RespData.Emailaddress,
+                            EmailSubject = commtempdata.Templatesubject,
+                            EmailMessage = message,
+                            IsEmailSent = false,
+                            DateTimeSent = DateTime.Now,
+                            Datecreated = DateTime.Now,
+                        };
+                        var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                         bool data = emlsnd.UttambsolutionssendemailAsync(RespData.Emailaddress, commtempdata.Templatesubject, message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
                         if (data)
                         {
@@ -487,7 +513,19 @@ namespace DBL
                             StrBodyEmail.Replace("@Password", sec.Decrypt(Resp.Passwords, Resp.Passharsh));
                             StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                             string message = StrBodyEmail.ToString();
-
+                            //log Email Messages
+                            EmailLogs Logs = new EmailLogs
+                            {
+                                EmailLogId = 0,
+                                TenantId = Resp.Tenantid,
+                                EmailAddress = Resp.Emailaddress,
+                                EmailSubject = commtempdata.Templatesubject + " - " + Resp.Tenantname.ToUpper(),
+                                EmailMessage = message,
+                                IsEmailSent = false,
+                                DateTimeSent = DateTime.Now,
+                                Datecreated = DateTime.Now,
+                            };
+                            var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                             bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, commtempdata.Templatesubject+" - "+ Resp.Tenantname.ToUpper(), message, true, Resp.EmailServer, Resp.EmailServerEmail, Resp.EmailPassword);
                             if (data)
                             {
@@ -545,6 +583,19 @@ namespace DBL
                                 StrBodyEmail.Replace("@Password", sec.Decrypt(RespData.Passwords, RespData.Passharsh));
                                 StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                                 string message = StrBodyEmail.ToString();
+                                //log Email Messages
+                                EmailLogs Logs = new EmailLogs
+                                {
+                                    EmailLogId = 0,
+                                    TenantId = RespData.Tenantid,
+                                    EmailAddress = RespData.Emailaddress,
+                                    EmailSubject = commtempdata.Templatesubject,
+                                    EmailMessage = message,
+                                    IsEmailSent = false,
+                                    DateTimeSent = DateTime.Now,
+                                    Datecreated = DateTime.Now,
+                                };
+                                var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                                 bool data = emlsnd.UttambsolutionssendemailAsync(RespData.Emailaddress, commtempdata.Templatesubject, message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
                                 if (data)
                                 {
@@ -602,7 +653,19 @@ namespace DBL
                         StrBodyEmail.Replace("@Password", sec.Decrypt(Resp.Passwords, Resp.Passharsh));
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
-
+                        //log Email Messages
+                        EmailLogs Logs = new EmailLogs
+                        {
+                            EmailLogId = 0,
+                            TenantId = Resp.Tenantid,
+                            EmailAddress = Resp.Emailaddress,
+                            EmailSubject = commtempdata.Templatesubject,
+                            EmailMessage = message,
+                            IsEmailSent = false,
+                            DateTimeSent = DateTime.Now,
+                            Datecreated = DateTime.Now,
+                        };
+                        var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                         bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, commtempdata.Templatesubject, message, true,Resp.EmailServer,Resp.EmailServerEmail,Resp.EmailPassword);
                         if (data)
                         {
@@ -654,7 +717,19 @@ namespace DBL
                         StrBodyEmail.Replace("@Password", sec.Decrypt(Resp.Passwords, Resp.Passharsh));
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
-
+                        //log Email Messages
+                        EmailLogs Logs = new EmailLogs
+                        {
+                            EmailLogId = 0,
+                            TenantId = Resp.Tenantid,
+                            EmailAddress = Resp.Emailaddress,
+                            EmailSubject = commtempdata.Templatesubject,
+                            EmailMessage = message,
+                            IsEmailSent = false,
+                            DateTimeSent = DateTime.Now,
+                            Datecreated = DateTime.Now,
+                        };
+                        var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                         bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, commtempdata.Templatesubject, message, true, Resp.EmailServer, Resp.EmailServerEmail, Resp.EmailPassword);
                         if (data)
                         {
@@ -763,6 +838,19 @@ namespace DBL
                             StrBodyEmail.Replace("@Password", sec.Decrypt(RespData.Pin, RespData.Pinharsh));
                             StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                             string message = StrBodyEmail.ToString();
+                            //log Email Messages
+                            EmailLogs Logs = new EmailLogs
+                            {
+                                EmailLogId = 0,
+                                TenantId = RespData.TenantId,
+                                EmailAddress = RespData.Emailaddress,
+                                EmailSubject = commtempdata.Templatesubject + " - " + RespData.TenantName.ToUpper(),
+                                EmailMessage = message,
+                                IsEmailSent = false,
+                                DateTimeSent = DateTime.Now,
+                                Datecreated = DateTime.Now,
+                            };
+                            var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                             bool data = emlsnd.UttambsolutionssendemailAsync(RespData.Emailaddress, commtempdata.Templatesubject +" - " + RespData.TenantName.ToUpper(), message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
                             if (data)
                             {
@@ -834,6 +922,19 @@ namespace DBL
                         StrBodyEmail.Replace("@Password", sec.Decrypt(RespData.Pin, RespData.Pinharsh));
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
+                        //log Email Messages
+                        EmailLogs Logs = new EmailLogs
+                        {
+                            EmailLogId = 0,
+                            TenantId = RespData.TenantId,
+                            EmailAddress = RespData.Emailaddress,
+                            EmailSubject = commtempdata.Templatesubject + " - " + RespData.TenantName.ToUpper(),
+                            EmailMessage = message,
+                            IsEmailSent = false,
+                            DateTimeSent = DateTime.Now,
+                            Datecreated = DateTime.Now,
+                        };
+                        var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                         bool data = emlsnd.UttambsolutionssendemailAsync(RespData.Emailaddress, commtempdata.Templatesubject + " - " + RespData.TenantName.ToUpper(), message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
                         if (data)
                         {
@@ -1082,6 +1183,19 @@ namespace DBL
                         StrBodyEmail.Replace("@Cardcode", Resp.Data6);
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
+                        //log Email Messages
+                        EmailLogs Logs = new EmailLogs
+                        {
+                            EmailLogId = 0,
+                            TenantId = Convert.ToInt32(Resp.Data7),
+                            EmailAddress = Resp.Data2,
+                            EmailSubject = commtempdata.Templatesubject,
+                            EmailMessage = message,
+                            IsEmailSent = false,
+                            DateTimeSent = DateTime.Now,
+                            Datecreated = DateTime.Now,
+                        };
+                        var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                         bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Data2, commtempdata.Templatesubject, message, true, Settings.EmailServer, Settings.EmailAddress, Settings.EmailPassword);
                         if (data)
                         {
@@ -1467,6 +1581,19 @@ namespace DBL
                         StrBodyEmail.Replace("@transcode", Resp.TransactionCode);
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
+                        //log Email Messages
+                        EmailLogs Logs = new EmailLogs
+                        {
+                            EmailLogId = 0,
+                            TenantId = Resp.Tenantid,
+                            EmailAddress = Resp.Emailaddress,
+                            EmailSubject = Resp.Customername.ToUpper() + "-" + commtempdata.Templatesubject,
+                            EmailMessage = message,
+                            IsEmailSent = false,
+                            DateTimeSent = DateTime.Now,
+                            Datecreated = DateTime.Now,
+                        };
+                        var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                         bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, Resp.Customername.ToUpper() + "-"+commtempdata.Templatesubject, message, true, Settings.EmailServer, Settings.EmailAddress, Settings.EmailPassword);
                         if (data)
                         {
@@ -2324,6 +2451,19 @@ namespace DBL
                         StrBodyEmail.Replace("@Cardcode", Resp.Data6);
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
+                        //log Email Messages
+                        EmailLogs Logs = new EmailLogs
+                        {
+                            EmailLogId = 0,
+                            TenantId = Convert.ToInt32(Resp.Data7),
+                            EmailAddress = Resp.Data2,
+                            EmailSubject = commtempdata.Templatesubject,
+                            EmailMessage = message,
+                            IsEmailSent = false,
+                            DateTimeSent = DateTime.Now,
+                            Datecreated = DateTime.Now,
+                        };
+                        var resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs));
                         bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Data2, commtempdata.Templatesubject, message, true, Settings.EmailServer, Settings.EmailAddress, Settings.EmailPassword);
                         if (data)
                         {
