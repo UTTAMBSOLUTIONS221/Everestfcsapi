@@ -29,7 +29,7 @@ namespace DBL.Repositories
                 JObject responseJson = JObject.Parse(customerDetailsJson);
                 if (Convert.ToInt32(responseJson["RespStatus"]) == 0)
                 {
-                    string customerModelJson = responseJson["Customermodel"].ToString();
+                    string customerModelJson = responseJson["CustomerModel"].ToString();
                     CustomermodeldataResponce customerResponse = JsonConvert.DeserializeObject<CustomermodeldataResponce>(customerModelJson);
                     resp.RespStatus = Convert.ToInt32(responseJson["RespStatus"]);
                     resp.RespMessage = responseJson["RespMessage"].ToString();
