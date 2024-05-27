@@ -29,5 +29,9 @@ namespace DBL.Repositories
         Genericmodel Resetuserpasswordpost(string JsonObjectdata);
         UsermodelResponce GetSystemStaffAlldata(long UserId);
         #endregion
+
+        #region Log Email Messages
+        Genericmodel LogEmailMessage(string JsonEntity);
+        #endregion
     }
 }

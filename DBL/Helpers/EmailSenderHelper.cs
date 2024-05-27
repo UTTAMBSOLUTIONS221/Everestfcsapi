@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using DBL.Entities;
+using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 
@@ -6,7 +7,12 @@ namespace DBL.Helpers
 {
     public class EmailSenderHelper
     {
-        public bool UttambsolutionssendemailAsync(string to, string subject, string body, bool IsBodyHtml,string EmailServer, string EmailServerEmail,string EmailServerPassword)
+        private readonly BL bl;
+        public EmailSenderHelper(IConfiguration config)
+        {
+            bl = new BL(Util.ShareConnectionString(config));
+        }
+        public async Task<bool> UttambsolutionssendemailAsync(long TenantId,string to, string subject, string body, bool IsBodyHtml,string EmailServer, string EmailServerEmail,string EmailServerPassword)
         {
             //string appServer = "mail.uttambsolutions.com";
             //string appEmail = "communications@uttambsolutions.com";
@@ -38,6 +44,19 @@ namespace DBL.Helpers
                 mail.Subject = subject;
                 mail.Body = body;
                 mail.To.Add(to);
+                //log Email Messages
+                EmailLogs Logs = new EmailLogs
+                {
+                    EmailLogId = 0,
+                    TenantId = TenantId,
+                    EmailAddress = to,
+                    EmailSubject = subject,
+                    EmailMessage = body,
+                    IsEmailSent = false,
+                    DateTimeSent = DateTime.Now,
+                    Datecreated = DateTime.Now,
+                };
+               var resp = await bl.LogEmailMessage(Logs);
 
                 using (SmtpClient smtp = new SmtpClient(appServer, 587))
                 {
@@ -47,6 +66,20 @@ namespace DBL.Helpers
                     try
                     {
                         smtp.Send(mail);
+                        //Update Email is sent 
+                        //log Email Messages
+                        EmailLogs Logs1 = new EmailLogs
+                        {
+                            EmailLogId =Convert.ToInt64(resp.Data1),
+                            TenantId = TenantId,
+                            EmailAddress = to,
+                            EmailSubject = subject,
+                            EmailMessage = body,
+                            IsEmailSent = true,
+                            DateTimeSent = DateTime.Now,
+                            Datecreated = DateTime.Now,
+                        };
+                        bl.LogEmailMessage(Logs1);
                         return true;
                     }
                     catch (Exception ex)

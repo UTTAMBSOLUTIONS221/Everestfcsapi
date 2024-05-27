@@ -98,7 +98,7 @@ namespace DBL
 
         public Task<Genericmodel> Resendstaffpassword(Emailsendingdata Obj)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 Genericmodel model = new Genericmodel();
                 var commtempdata = db.SettingsRepository.Getsystemcommunicationtemplatedatabyname(true, "Forgotpasswords");
@@ -113,7 +113,7 @@ namespace DBL
                     StrBodyEmail.Replace("@Password", sec.Decrypt(Obj.Password, Obj.Passharsh));
                     StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                     string message = StrBodyEmail.ToString();
-                    bool data = emlsnd.UttambsolutionssendemailAsync(Obj.Emailaddress, commtempdata.Templatesubject, message, true,"","","");
+                    bool data = await emlsnd.UttambsolutionssendemailAsync(Obj.TenantId, Obj.Emailaddress, commtempdata.Templatesubject, message, true,"","","");
                     if (data)
                     {
                         model.RespStatus = 0;
@@ -328,7 +328,7 @@ namespace DBL
         }
         public Task<Genericmodel> Registertenantaccountdata(SystemTenantAccount obj)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 string Passwordhash = str.RandomString(12);
                 string Password = str.RandomString(8).ToString();
@@ -352,7 +352,7 @@ namespace DBL
                         StrBodyEmail.Replace("@Password", sec.Decrypt(RespData.Passwords, RespData.Passharsh));
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
-                        bool data = emlsnd.UttambsolutionssendemailAsync(RespData.Emailaddress, commtempdata.Templatesubject, message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
+                        bool data = await emlsnd.UttambsolutionssendemailAsync(RespData.Tenantid, RespData.Emailaddress, commtempdata.Templatesubject, message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
                         if (data)
                         {
                             Resp.RespStatus = 0;
@@ -463,7 +463,7 @@ namespace DBL
         }
         public Task<Genericmodel> RegisterSystemStaff(SystemStaffs obj)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 string Passwordhash = str.RandomString(12);
                 string Password = str.RandomString(8).ToString();
@@ -488,7 +488,7 @@ namespace DBL
                             StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                             string message = StrBodyEmail.ToString();
 
-                            bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, commtempdata.Templatesubject+" - "+ Resp.Tenantname.ToUpper(), message, true, Resp.EmailServer, Resp.EmailServerEmail, Resp.EmailPassword);
+                            bool data = await emlsnd.UttambsolutionssendemailAsync(Convert.ToInt64(Resp.Tenantid),Resp.Emailaddress, commtempdata.Templatesubject+" - "+ Resp.Tenantname.ToUpper(), message, true, Resp.EmailServer, Resp.EmailServerEmail, Resp.EmailPassword);
                             if (data)
                             {
                                 Response.RespStatus = 0;
@@ -523,7 +523,7 @@ namespace DBL
 
         public Task<Genericmodel> Registersystemstaffdata(string JsonObj)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 var Resp = db.SecurityRepository.Registersystemstaffdata(JsonObj);
                 if (Resp.RespStatus == 0)
@@ -545,7 +545,7 @@ namespace DBL
                                 StrBodyEmail.Replace("@Password", sec.Decrypt(RespData.Passwords, RespData.Passharsh));
                                 StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                                 string message = StrBodyEmail.ToString();
-                                bool data = emlsnd.UttambsolutionssendemailAsync(RespData.Emailaddress, commtempdata.Templatesubject, message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
+                                bool data = await emlsnd.UttambsolutionssendemailAsync(RespData.Tenantid, RespData.Emailaddress, commtempdata.Templatesubject, message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
                                 if (data)
                                 {
                                     Resp.RespStatus = 0;
@@ -584,7 +584,7 @@ namespace DBL
         public Task<Genericmodel> Resendsystemstaffpassword(long StaffId)
         {
             Genericmodel Response = new Genericmodel();
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 var Resp = db.SecurityRepository.Resendsystemstaffpassword(StaffId);
                 if (Resp.Userid>=1)
@@ -603,7 +603,7 @@ namespace DBL
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
 
-                        bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, commtempdata.Templatesubject, message, true,Resp.EmailServer,Resp.EmailServerEmail,Resp.EmailPassword);
+                        bool data = await emlsnd.UttambsolutionssendemailAsync(Resp.Tenantid, Resp.Emailaddress, commtempdata.Templatesubject, message, true,Resp.EmailServer,Resp.EmailServerEmail,Resp.EmailPassword);
                         if (data)
                         {
                             Response.RespStatus = 0;
@@ -632,7 +632,7 @@ namespace DBL
         }
         public Task<Genericmodel> Resetuserpasswordpost(Staffresetpassword JsonObj)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 string EncryptionKey = str.RandomString(12);
                 string Encryptedpassword = sec.Encrypt(JsonObj.Passwords, EncryptionKey);
@@ -655,7 +655,7 @@ namespace DBL
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
 
-                        bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, commtempdata.Templatesubject, message, true, Resp.EmailServer, Resp.EmailServerEmail, Resp.EmailPassword);
+                        bool data = await emlsnd.UttambsolutionssendemailAsync(Resp.Tenantid, Resp.Emailaddress, commtempdata.Templatesubject, message, true, Resp.EmailServer, Resp.EmailServerEmail, Resp.EmailPassword);
                         if (data)
                         {
                             Response.RespStatus = 0;
@@ -739,7 +739,7 @@ namespace DBL
         }
         public Task<Genericmodel> RegisterCustomerData(SystemCustomer obj)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 string Passwordhash = str.RandomString(12);
                 string Password = str.RandomString(8).ToString();
@@ -763,7 +763,7 @@ namespace DBL
                             StrBodyEmail.Replace("@Password", sec.Decrypt(RespData.Pin, RespData.Pinharsh));
                             StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                             string message = StrBodyEmail.ToString();
-                            bool data = emlsnd.UttambsolutionssendemailAsync(RespData.Emailaddress, commtempdata.Templatesubject +" - " + RespData.TenantName.ToUpper(), message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
+                            bool data = await emlsnd.UttambsolutionssendemailAsync(RespData.TenantId, RespData.Emailaddress, commtempdata.Templatesubject +" - " + RespData.TenantName.ToUpper(), message, true, RespData.EmailServer, RespData.EmailServerEmail, RespData.EmailPassword);
                             if (data)
                             {
                                 Resp.RespStatus = 0;
@@ -1012,7 +1012,7 @@ namespace DBL
         #region Customer Agreements Accounts
         public Task<Genericmodel> RegisterCustomerAgreementAccountData(CustomerAgreementAccountData obj)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 string Passwordhash = str.RandomString(12);
                 string Password = str.RandomNumber(1, 10000).ToString();
@@ -1036,7 +1036,7 @@ namespace DBL
                         StrBodyEmail.Replace("@Cardcode", Resp.Data6);
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
-                        bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Data2, commtempdata.Templatesubject, message, true, Settings.EmailServer, Settings.EmailAddress, Settings.EmailPassword);
+                        bool data = await emlsnd.UttambsolutionssendemailAsync(Convert.ToInt64(Resp.Data7),Resp.Data2, commtempdata.Templatesubject, message, true, Settings.EmailServer, Settings.EmailAddress, Settings.EmailPassword);
                         if (data)
                         {
                             Resp.RespStatus = 0;
@@ -1367,7 +1367,7 @@ namespace DBL
         #region Post Sales Transaction
         public Task<SingleFinanceTransactions> PostSaleTransaction(string obj)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 var Resp = db.SalesTransactionRepository.PostSaleTransaction(obj);
                 if (Resp.RespStatus == 0)
@@ -1421,7 +1421,7 @@ namespace DBL
                         StrBodyEmail.Replace("@transcode", Resp.TransactionCode);
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
-                        bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, Resp.Customername.ToUpper() + "-"+commtempdata.Templatesubject, message, true, Settings.EmailServer, Settings.EmailAddress, Settings.EmailPassword);
+                        bool data = await emlsnd.UttambsolutionssendemailAsync(Convert.ToInt64(Resp.Tenantid),Resp.Emailaddress, Resp.Customername.ToUpper() + "-"+commtempdata.Templatesubject, message, true, Settings.EmailServer, Settings.EmailAddress, Settings.EmailPassword);
                         if (data)
                         {
                             Resp.RespStatus = 0;
@@ -2258,7 +2258,7 @@ namespace DBL
 
         public Task<Genericmodel> Resendcustomercardpin(long Tenantcardid)
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
                 var Resp = db.SetupRepository.GetSystemTenantCardById(Tenantcardid);
                 if (Resp.RespStatus == 0)
@@ -2278,7 +2278,7 @@ namespace DBL
                         StrBodyEmail.Replace("@Cardcode", Resp.Data6);
                         StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
                         string message = StrBodyEmail.ToString();
-                        bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Data2, commtempdata.Templatesubject, message, true, Settings.EmailServer, Settings.EmailAddress, Settings.EmailPassword);
+                        bool data = await emlsnd.UttambsolutionssendemailAsync(Convert.ToInt64(Resp.Data7),Resp.Data2, commtempdata.Templatesubject, message, true, Settings.EmailServer, Settings.EmailAddress, Settings.EmailPassword);
                         if (data)
                         {
                             Resp.RespStatus = 0;
@@ -2742,5 +2742,20 @@ namespace DBL
         }
         #endregion
         #endregion
+
+
+
+
+        #region  log Email Messages
+        public Task<Genericmodel> LogEmailMessage(EmailLogs JsonObj)
+        {
+            return Task.Run(() =>
+            {
+                var Resp = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(JsonObj));
+                return Resp;
+            });
+        }
+        #endregion
+
     }
 }

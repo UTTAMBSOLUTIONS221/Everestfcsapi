@@ -263,5 +263,23 @@ namespace DBL.Repositories
             }
         }
         #endregion
+
+
+
+        #region Log Email Messages
+        public Genericmodel LogEmailMessage(string JsonEntity)
+        {
+            using (var connection = new SqlConnection(_connString))
+            {
+                connection.Open();
+                DynamicParameters parameters = new DynamicParameters();
+
+                parameters.Add("@JsonObjectdata", JsonEntity);
+                return connection.Query<Genericmodel>("Usp_RegisterSystemEmailLogs", parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+        #endregion
+
+
     }
 }
