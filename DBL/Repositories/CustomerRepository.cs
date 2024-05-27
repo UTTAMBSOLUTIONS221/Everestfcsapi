@@ -23,7 +23,7 @@ namespace DBL.Repositories
                 CustomermodelResponce resp = new CustomermodelResponce();
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Username", Username);
-                parameters.Add("@@CustomerDetails", dbType: DbType.String, direction: ParameterDirection.Output, size: int.MaxValue);
+                parameters.Add("@CustomerDetails", dbType: DbType.String, direction: ParameterDirection.Output, size: int.MaxValue);
                 var queryResult = connection.Query("Usp_Everestfcsverifysystemcustomer", parameters, commandType: CommandType.StoredProcedure);
                 string customerDetailsJson = parameters.Get<string>("@CustomerDetails");
                 JObject responseJson = JObject.Parse(customerDetailsJson);
