@@ -814,6 +814,55 @@ namespace DBL
                 return Resp;
             });
         }
+        public Task<Genericmodel> Resendcustomerpassword(long CustomerId)
+        {
+            Genericmodel Response = new Genericmodel();
+            return Task.Run(() =>
+            {
+                var Resp = db.CustomerRepository.Resendcustomerpassword(CustomerId);
+                if (Resp.Userid >= 1)
+                {
+                    //send Card Assignment Email
+                    var commtempdata = db.SettingsRepository.Getsystemcommunicationtemplatedatabyname(true, "Staffforgotpasswordtemplate");
+                    if (commtempdata != null)
+                    {
+                        StringBuilder StrBodyEmail = new StringBuilder(commtempdata.Templatebody);
+                        StrBodyEmail.Replace("@CompanyLogo", Resp.TenantLogo);
+                        StrBodyEmail.Replace("@CompanyName", Resp.Tenantname);
+                        StrBodyEmail.Replace("@CompanyEmail", Resp.TenantEmail);
+                        StrBodyEmail.Replace("@Fullname", Resp.Firstname + " " + Resp.Lastname);
+                        StrBodyEmail.Replace("@Username", Resp.Username);
+                        StrBodyEmail.Replace("@Password", sec.Decrypt(Resp.Passwords, Resp.Passharsh));
+                        StrBodyEmail.Replace("@CurrentYear", DateTime.Now.Year.ToString());
+                        string message = StrBodyEmail.ToString();
+
+                        bool data = emlsnd.UttambsolutionssendemailAsync(Resp.Emailaddress, commtempdata.Templatesubject, message, true, Resp.EmailServer, Resp.EmailServerEmail, Resp.EmailPassword);
+                        if (data)
+                        {
+                            Response.RespStatus = 0;
+                            Response.RespMessage = "Email Sent";
+                        }
+                        else
+                        {
+                            Response.RespStatus = 1;
+                            Response.RespMessage = "Email not Sent";
+                        }
+                    }
+                    else
+                    {
+                        Response.RespStatus = 1;
+                        Response.RespMessage = "Template not found!";
+                    }
+                }
+                else
+                {
+                    Response.RespStatus = 1;
+                    Response.RespMessage = "Staff not found!";
+                }
+
+                return Response;
+            });
+        }
         #endregion
 
         #region Customer Agreements

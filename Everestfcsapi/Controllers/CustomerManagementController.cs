@@ -410,5 +410,12 @@ namespace Everestfcsapi.Controllers
         }
         #endregion
 
+        #region Customer Resend Password
+        [HttpGet("Resendcustomerpassword/{CustomerId}")]
+        public async Task<Genericmodel> Resendcustomerpassword(long CustomerId)
+        {
+            return await bl.Resendcustomerpassword(CustomerId);
+        }
+        #endregion
     }
 }
