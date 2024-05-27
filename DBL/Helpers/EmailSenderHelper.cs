@@ -13,8 +13,8 @@ namespace DBL.Helpers
             //string appPassword = "K@ribun1";
 
             string appServer = "smtp.gmail.com";
-            string appEmail = "Uttambsolutionapissale@gmail.com";
-            string appPassword = "ozvtcxongpnhileq";
+            string appEmail = "uttambsolutions3@gmail.com";
+            string appPassword = "fhuq etym dxel pmzw";
 
 
 
@@ -30,7 +30,7 @@ namespace DBL.Helpers
                 appEmail = EmailServerEmail;
                 appPassword = EmailServerPassword;
             }
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             using (MailMessage mail = new MailMessage())
             {
                 mail.From = new MailAddress(appEmail,"EVEREST FCS");
@@ -39,10 +39,11 @@ namespace DBL.Helpers
                 mail.Body = body;
                 mail.To.Add(to);
 
-                using (SmtpClient smtp = new SmtpClient(appServer, 25))
+                using (SmtpClient smtp = new SmtpClient(appServer, 587))
                 {
-                    NetworkCredential Credentials = new NetworkCredential(appEmail, appPassword);
-                    smtp.Credentials = Credentials;
+                    smtp.EnableSsl = true;
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = new NetworkCredential(appEmail, appPassword);
                     try
                     {
                         smtp.Send(mail);
