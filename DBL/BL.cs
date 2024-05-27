@@ -131,6 +131,19 @@ namespace DBL
                     {
                         model.RespStatus = 0;
                         model.RespMessage = "Email Sent";
+                        //Update Email is sent 
+                        EmailLogs Logs1 = new EmailLogs
+                        {
+                            EmailLogId = Convert.ToInt64(resp.Data1),
+                            TenantId = Obj.TenantId,
+                            EmailAddress = Obj.Emailaddress,
+                            EmailSubject = commtempdata.Templatesubject,
+                            EmailMessage = message,
+                            IsEmailSent = true,
+                            DateTimeSent = DateTime.Now,
+                            Datecreated = DateTime.Now,
+                        };
+                        var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                     }
                     else
                     {
@@ -383,6 +396,19 @@ namespace DBL
                         {
                             Resp.RespStatus = 0;
                             Resp.RespMessage = "Email Sent";
+                            //Update Email is sent 
+                            EmailLogs Logs1 = new EmailLogs
+                            {
+                                EmailLogId = Convert.ToInt64(resp.Data1),
+                                TenantId = RespData.Tenantid,
+                                EmailAddress = RespData.Emailaddress,
+                                EmailSubject = commtempdata.Templatesubject,
+                                EmailMessage = message,
+                                IsEmailSent = true,
+                                DateTimeSent = DateTime.Now,
+                                Datecreated = DateTime.Now,
+                            };
+                            var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                         }
                         else
                         {
@@ -531,6 +557,19 @@ namespace DBL
                             {
                                 Response.RespStatus = 0;
                                 Response.RespMessage = "Email Sent";
+                                //Update Email is sent 
+                                EmailLogs Logs1 = new EmailLogs
+                                {
+                                    EmailLogId = Convert.ToInt64(resp.Data1),
+                                    TenantId = Resp.Tenantid,
+                                    EmailAddress = Resp.Emailaddress,
+                                    EmailSubject = commtempdata.Templatesubject,
+                                    EmailMessage = message,
+                                    IsEmailSent = true,
+                                    DateTimeSent = DateTime.Now,
+                                    Datecreated = DateTime.Now,
+                                };
+                                var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                             }
                             else
                             {
@@ -601,6 +640,19 @@ namespace DBL
                                 {
                                     Resp.RespStatus = 0;
                                     Resp.RespMessage = "Email Sent";
+                                    //Update Email is sent 
+                                    EmailLogs Logs1 = new EmailLogs
+                                    {
+                                        EmailLogId = Convert.ToInt64(resp.Data1),
+                                        TenantId = RespData.Tenantid,
+                                        EmailAddress = RespData.Emailaddress,
+                                        EmailSubject = commtempdata.Templatesubject,
+                                        EmailMessage = message,
+                                        IsEmailSent = true,
+                                        DateTimeSent = DateTime.Now,
+                                        Datecreated = DateTime.Now,
+                                    };
+                                    var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                                 }
                                 else
                                 {
@@ -671,6 +723,19 @@ namespace DBL
                         {
                             Response.RespStatus = 0;
                             Response.RespMessage = "Email Sent";
+                            //Update Email is sent 
+                            EmailLogs Logs1 = new EmailLogs
+                            {
+                                EmailLogId = Convert.ToInt64(resp.Data1),
+                                TenantId = Resp.Tenantid,
+                                EmailAddress = Resp.Emailaddress,
+                                EmailSubject = commtempdata.Templatesubject,
+                                EmailMessage = message,
+                                IsEmailSent = true,
+                                DateTimeSent = DateTime.Now,
+                                Datecreated = DateTime.Now,
+                            };
+                            var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                         }
                         else
                         {
@@ -735,6 +800,19 @@ namespace DBL
                         {
                             Response.RespStatus = 0;
                             Response.RespMessage = "Email Sent";
+                            //Update Email is sent 
+                            EmailLogs Logs1 = new EmailLogs
+                            {
+                                EmailLogId = Convert.ToInt64(resp.Data1),
+                                TenantId = Resp.Tenantid,
+                                EmailAddress = Resp.Emailaddress,
+                                EmailSubject = commtempdata.Templatesubject,
+                                EmailMessage = message,
+                                IsEmailSent = true,
+                                DateTimeSent = DateTime.Now,
+                                Datecreated = DateTime.Now,
+                            };
+                            var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                         }
                         else
                         {
@@ -856,6 +934,19 @@ namespace DBL
                             {
                                 Resp.RespStatus = 0;
                                 Resp.RespMessage = "Email Sent";
+                                //Update Email is sent 
+                                EmailLogs Logs1 = new EmailLogs
+                                {
+                                    EmailLogId = Convert.ToInt64(resp.Data1),
+                                    TenantId = RespData.TenantId,
+                                    EmailAddress = RespData.Emailaddress,
+                                    EmailSubject = commtempdata.Templatesubject,
+                                    EmailMessage = message,
+                                    IsEmailSent = true,
+                                    DateTimeSent = DateTime.Now,
+                                    Datecreated = DateTime.Now,
+                                };
+                                var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                             }
                             else
                             {
@@ -940,6 +1031,19 @@ namespace DBL
                         {
                             Resp.RespStatus = 0;
                             Resp.RespMessage = "Email Sent";
+                            //Update Email is sent 
+                            EmailLogs Logs1 = new EmailLogs
+                            {
+                                EmailLogId = Convert.ToInt64(resp.Data1),
+                                TenantId = RespData.TenantId,
+                                EmailAddress = RespData.Emailaddress,
+                                EmailSubject = commtempdata.Templatesubject,
+                                EmailMessage = message,
+                                IsEmailSent = true,
+                                DateTimeSent = DateTime.Now,
+                                Datecreated = DateTime.Now,
+                            };
+                            var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                         }
                         else
                         {
@@ -1201,6 +1305,19 @@ namespace DBL
                         {
                             Resp.RespStatus = 0;
                             Resp.RespMessage = "Email Sent";
+                            //Update Email is sent 
+                            EmailLogs Logs1 = new EmailLogs
+                            {
+                                EmailLogId = Convert.ToInt64(resp.Data1),
+                                TenantId = Convert.ToInt32(Resp.Data7),
+                                EmailAddress = Resp.Data2,
+                                EmailSubject = commtempdata.Templatesubject,
+                                EmailMessage = message,
+                                IsEmailSent = true,
+                                DateTimeSent = DateTime.Now,
+                                Datecreated = DateTime.Now,
+                            };
+                            var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                         }
                         else
                         {
@@ -1599,6 +1716,19 @@ namespace DBL
                         {
                             Resp.RespStatus = 0;
                             Resp.RespMessage = "Email Sent";
+                            //Update Email is sent 
+                            EmailLogs Logs1 = new EmailLogs
+                            {
+                                EmailLogId = Convert.ToInt64(resp.Data1),
+                                TenantId = Resp.Tenantid,
+                                EmailAddress = Resp.Emailaddress,
+                                EmailSubject = commtempdata.Templatesubject,
+                                EmailMessage = message,
+                                IsEmailSent = true,
+                                DateTimeSent = DateTime.Now,
+                                Datecreated = DateTime.Now,
+                            };
+                            var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                         }
                         else
                         {
@@ -2469,6 +2599,19 @@ namespace DBL
                         {
                             Resp.RespStatus = 0;
                             Resp.RespMessage = "Email Sent";
+                            //Update Email is sent 
+                            EmailLogs Logs1 = new EmailLogs
+                            {
+                                EmailLogId = Convert.ToInt64(resp.Data1),
+                                TenantId = Convert.ToInt32(Resp.Data7),
+                                EmailAddress = Resp.Data2,
+                                EmailSubject = commtempdata.Templatesubject,
+                                EmailMessage = message,
+                                IsEmailSent = true,
+                                DateTimeSent = DateTime.Now,
+                                Datecreated = DateTime.Now,
+                            };
+                            var resp1 = db.SecurityRepository.LogEmailMessage(JsonConvert.SerializeObject(Logs1));
                         }
                         else
                         {
