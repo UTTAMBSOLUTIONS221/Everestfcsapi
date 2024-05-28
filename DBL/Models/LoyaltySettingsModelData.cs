@@ -28,8 +28,8 @@
         public long ToRewardId { get; set; }
         public decimal ConversionValue { get; set; }
         public bool AutoRedeem { get; set; }
-        public long RedeemPeriod { get; set; }
-        public long RedeemDay { get; set; }
+        public string? RedeemPeriod { get; set; }
+        public int RedeemDay { get; set; }
         public string? Createdby { get; set; }
         public string? Modifiedby { get; set; }
         public DateTime DateCreated { get; set; }
