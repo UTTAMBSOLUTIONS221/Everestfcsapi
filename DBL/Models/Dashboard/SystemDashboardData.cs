@@ -7,8 +7,8 @@
         public int Postpaidcustomer { get; set; }
         public int OnlineSales { get; set; }
         public int OfflineSales { get; set; }
-        public int AwardedPoints { get; set; }
-        public int RedeemedPoints { get; set; }
+        public decimal AwardedPoints { get; set; }
+        public decimal RedeemedPoints { get; set; }
         public List<DailySalesData>? DailySales { get; set; }
         public List<MonthlySalesData>? MonthlySales { get; set; }
         public List<DailyAwardsData>? DailyAwards { get; set; }
