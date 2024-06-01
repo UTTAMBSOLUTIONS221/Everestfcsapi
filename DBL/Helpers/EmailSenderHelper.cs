@@ -34,7 +34,7 @@ namespace DBL.Helpers
             //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             using (MailMessage mail = new MailMessage())
             {
-                mail.From = new MailAddress(appEmail,"EVEREST FCS");
+                mail.From = new MailAddress(appEmail,"EVEREST");
                 mail.IsBodyHtml = IsBodyHtml;
                 mail.Subject = subject;
                 mail.Body = body;
