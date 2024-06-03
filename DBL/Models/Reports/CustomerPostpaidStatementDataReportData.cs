@@ -22,6 +22,8 @@
         public string? Customeridnumber { get; set; }
         public string? Mask { get; set; }
         public string? Equipment { get; set; }
+        public string? StationName { get; set; }
+        public string? StaffName { get; set; }
         public double Debit { get; set; }
         public double Credit { get; set; }
         public long AccountNumber { get; set; }
